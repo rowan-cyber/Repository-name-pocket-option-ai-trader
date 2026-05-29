@@ -12,6 +12,7 @@ from pathlib import Path
 # Add project root to path
 project_root = Path(__file__).parent.parent.parent
 sys.path.insert(0, str(project_root))
+sys.path.insert(0, str(project_root / "src"))
 
 from dotenv import load_dotenv
 
@@ -19,8 +20,8 @@ from dotenv import load_dotenv
 load_dotenv()
 
 from telegram.ext import Application, CommandHandler, CallbackQueryHandler
-from config.settings import Settings
-from logger.logger import setup_logger
+from src.config.settings import Settings
+from src.logger.logger import setup_logger
 
 # Setup logger
 logger = setup_logger(__name__)
@@ -30,12 +31,12 @@ settings = Settings()
 
 # Import handlers
 try:
-    from bot.handlers.start_handler import start_command
-    from bot.handlers.markets_handler import market_command, market_callback
-    from bot.handlers.trading_handler import buy_command, sell_command, trade_callback
-    from bot.handlers.account_handler import account_command, stats_command
-    from bot.handlers.strategy_handler import strategy_command, strategy_callback
-    from bot.handlers.settings_handler import settings_command, settings_callback
+    from src.bot.handlers.start_handler import start_command
+    from src.bot.handlers.markets_handler import market_command, market_callback
+    from src.bot.handlers.trading_handler import buy_command, sell_command, trade_callback
+    from src.bot.handlers.account_handler import account_command, stats_command
+    from src.bot.handlers.strategy_handler import strategy_command, strategy_callback
+    from src.bot.handlers.settings_handler import settings_command, settings_callback
     logger.info("✅ All handlers imported successfully")
 except ImportError as e:
     logger.error(f"❌ Failed to import handlers: {e}", exc_info=True)
